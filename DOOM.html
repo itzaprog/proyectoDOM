@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ejercicio DOM</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  body { background-color: #0d6efd; }
+  #titulo { color: #fff; }
+  #img1 { position: relative; transition: all .3s; }
+  .caja { background:#212529; color:#fff; padding:1rem; border-radius:.5rem; margin-bottom:1.5rem; }
+</style>
+</head>
+<!-- BODY: onload y cambio de color de fondo -->
+<body onload="mensaje('Página cargada (onload)')">
+<div class="container py-4">
+
+  <h1 id="titulo">Ejercicio DOM</h1>
+  <p id="estado" class="text-warning">Estado: esperando...</p>
+
+  <!-- Cuerpo -->
+  <div class="caja">
+    <h2 class="h5">Cuerpo</h2>
+    <button onclick="document.body.style.backgroundColor='teal'">Fondo verde</button>
+    <button onclick="document.body.style.backgroundColor='#0d6efd'">Fondo azul</button>
+  </div>
+
+  <!-- Encabezados y párrafos -->
+  <div class="caja">
+    <h2 class="h5">Encabezado y párrafo</h2>
+    <h3 id="h3" onmouseover="this.style.color='gold'" onmouseout="this.style.color='white'">Pasa el mouse sobre mí</h3>
+    <p id="parrafo" ondblclick="this.style.fontSize='24px'" onclick="this.style.textAlign='center'">
+      Clic: centra. Doble clic: agranda la letra.</p>
+    <input id="tecla" class="form-control w-50" placeholder="Parrafo">
+  </div>
+
+  <!-- Listas -->
+  <div class="caja">
+    <h2 class="h5">Lista</h2>
+    <ul id="lista">
+      <li>Elemento 1</li><li>Elemento 2</li><li>Elemento 3</li>
+    </ul>
+    <button onclick="document.getElementById('lista').style.color='orange'">Color lista</button>
+    <button onclick="document.getElementById('lista').style.fontSize='22px'">Agrandar</button>
+  </div>
+
+  <!-- Hiperenlaces -->
+  <div class="caja">
+    <h2 class="h5">Hiperenlace</h2>
+    <a id="enlace" href="https://example.com" class="link-light"
+       onmouseover="this.style.textDecoration='underline overline'"
+       onmouseout="this.style.textDecoration='none'"
+       onclick="return confirm('¿Ir al enlace?')">Visitar sitio</a>
+  </div>
+
+  <!-- Imágenes -->
+  <div class="caja">
+    <h2 class="h5">Imagen</h2>
+    <img id="img1" src="https://i.pinimg.com/originals/25/9a/bc/259abcd14c95c108e0610cc61cb5a2ca.jpg" alt="Imagen de prueba" width="150" class="rounded"
+         onmouseover="this.style.opacity=0.5" onmouseout="this.style.opacity=1">
+    <div class="mt-2">
+      <button onclick="img1.width+=30">Agrandar</button>
+      <button onclick="img1.width-=30">Reducir</button>
+      <button onclick="img1.style.left='60px'">Mover →</button>
+      <button onclick="img1.style.left='0px'">Regresar</button>
+    </div>
+  </div>
+
+  <!-- Tablas -->
+  <div class="caja">
+    <h2 class="h5">Tabla</h2>
+    <table id="tabla" border="1" style="border-collapse:collapse;width:100%">
+      <tr><th>Nombre</th><th>Edad</th></tr>
+      <tr><td>Ana</td><td>20</td></tr>
+      <tr><td>Luis</td><td>22</td></tr>
+    </table>
+    <button onclick="tabla.style.borderWidth='5px'" class="mt-2">Borde grueso</button>
+    <button onclick="tabla.style.backgroundColor='navy'">Color fondo</button>
+  </div>
+
+  <!-- Formularios -->
+  <div class="caja">
+    <h2 class="h5">Formulario</h2>
+    <input id="nombre" class="form-control mb-2" placeholder="Nombre"
+           onfocus="this.style.backgroundColor='#ffffcc'"
+           onblur="this.style.backgroundColor=''"
+           onkeyup="document.getElementById('eco').textContent='Escribiste: '+this.value">
+    <p id="eco" class="text-info"></p>
+    <select id="color" class="form-select mb-2" onchange="document.getElementById('titulo').style.color=this.value">
+      <option value="white">Blanco</option>
+      <option value="yellow">Amarillo</option>
+      <option value="pink">Rosa</option>
+    </select>
+    <button id="btn" onclick="saludar()">Saludar</button>
+    <button onclick="document.getElementById('nombre').value=''">Limpiar</button>
+  </div>
+</div>
+
+<script>
+  const img1 = document.getElementById("img1");
+  const tabla = document.getElementById("tabla");
+
+  function mensaje(t) { document.getElementById("estado").textContent = "Estado: " + t; }
+
+  function saludar() {
+    const n = document.getElementById("nombre").value;
+    mensaje(n === "" ? "Escribe tu nombre primero" : "Hola, " + n + "!");
+  }
+
+  // Teclado con addEventListener
+  document.getElementById("tecla").addEventListener("keydown", function (e) {
+    mensaje("Tecla presionada: " + e.key);
+  });
